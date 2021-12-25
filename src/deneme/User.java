@@ -24,7 +24,7 @@ public abstract class User {
     private String phone;
     private String photo;
     
-    public User(String fisrtname, String lastname, String birthday, String faculty_name, String department_name, String email, String password, String address, String phone, String photo){
+    public User(String firstname, String lastname, String birthday, String faculty_name, String department_name, String email, String password, String address, String phone, String photo){
         this.id++;
         this.firstname = firstname;
         this.lastname = lastname;

@@ -16,7 +16,9 @@ public class UserController {
     
     
     public static void registerUser(User user){
+        
         userArrayList.add(user);
+
     }
     
     

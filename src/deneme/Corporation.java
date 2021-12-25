@@ -19,9 +19,10 @@ public class Corporation {
     private String c_address;
     private String c_sector;
     private String c_photo;
+    private static int totalCorporation = 0;
     
-    public Corporation(int id, String c_name, String c_email, String c_password, String c_phone, String c_type, String c_address, String c_sector, String c_photo){
-        this.id = id;
+    public Corporation(String c_name, String c_email, String c_password, String c_phone, String c_type, String c_address, String c_sector, String c_photo){
+        this.id++;
         this.c_name = c_name;
         this.c_email = c_email;
         this.c_password = c_password;
@@ -31,6 +32,7 @@ public class Corporation {
         this.c_sector = c_sector;
         this.c_phone = c_phone;
         this.c_photo = c_photo;
+        totalCorporation++;
     }
 
     /**
@@ -96,6 +98,14 @@ public class Corporation {
         return c_photo;
     }
     
+    /**
+     * @return the totalCorporation
+     */
+    public static int getTotalCorporation() {
+        return totalCorporation;
+    }
+    
+    
     @Override
     public String toString(){
         return "Corporation name: " + getC_name() + "\n"
@@ -105,5 +115,5 @@ public class Corporation {
                +"Corporation Sector: " + getC_sector() + "\n"
                +"Corporation Photo: " + getC_photo();
     }
-    
+
 }

@@ -38,6 +38,11 @@ public class MainJFrame extends javax.swing.JFrame {
                 loginBtnMouseClicked(evt);
             }
         });
+        loginBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginBtnActionPerformed(evt);
+            }
+        });
 
         registerBtn.setText("REGISTER");
         registerBtn.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -81,6 +86,10 @@ public class MainJFrame extends javax.swing.JFrame {
         RegisterJFrame rjf = new RegisterJFrame();
         rjf.setVisible(true);
     }//GEN-LAST:event_registerBtnMouseClicked
+
+    private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_loginBtnActionPerformed
 
     /**
      * @param args the command line arguments

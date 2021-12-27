@@ -12,17 +12,14 @@ import java.util.ArrayList;
  * @author Can
  */
 public class UserController {
-    private static ArrayList<User> userArrayList = new ArrayList<User>();
-    
-    
-    public static void registerUser(User user){
-        
-        userArrayList.add(user);
 
+    public static ArrayList<User> userArrayList = new ArrayList<User>();
+
+    public static void registerUser(User user) {
+        userArrayList.add(user);
     }
-    
-    
-    public static boolean checkStudent(int studentNo){
+
+    public static boolean checkStudent(int studentNo) {
         for (int i = 0; i < userArrayList.size(); i++) {
             if (userArrayList.get(i) instanceof Student) {
                 int totalStudent = Student.getTotalStudent();
@@ -35,10 +32,24 @@ public class UserController {
         }
         return false;
     }
-    
-    
-    
-    public static String getStudent(){
+
+    public static boolean checkInstructor(String username) {
+        for (int i = 0; i < userArrayList.size(); i++) {
+            if (userArrayList.get(i) instanceof Instructor) {
+                int totalInstructor = Instructor.getTotalInstructor();
+                for (int j = 0; j < totalInstructor; j++) {
+                    if (Instructor.getUsername().equals(username)) {
+                        return true;
+                    }
+
+                }
+            }
+
+        }
+        return false;
+    }
+
+    public static String getStudent() {
         String result = "";
         for (int i = 0; i < userArrayList.size(); i++) {
             if (userArrayList.get(i) instanceof Student) {
@@ -50,8 +61,8 @@ public class UserController {
         }
         return result;
     }
-    
-    public static String getInstructor(){
+
+    public static String getInstructor() {
         String result = "";
         for (int i = 0; i < userArrayList.size(); i++) {
             if (userArrayList.get(i) instanceof Instructor) {
@@ -63,4 +74,42 @@ public class UserController {
         }
         return result;
     }
+
+    public static ArrayList displayInstructor() {
+        ArrayList temp = new ArrayList();
+        for (int i = 0; i < userArrayList.size(); i++) {
+            if (userArrayList.get(i) instanceof Instructor) {
+                temp.add(userArrayList.get(i).getId());
+                temp.add(Instructor.getInstructor_id());
+                temp.add(userArrayList.get(i).getFirstname());
+                temp.add(userArrayList.get(i).getLastname());
+                temp.add(userArrayList.get(i).getEmail());
+            }
+        }
+        return temp;
+    }
+    
+    /*public static ArrayList<Student> displayStudent() {
+        ArrayList temp = new ArrayList();
+        for (int i = 0; i < userArrayList.size(); i++) {
+            if (userArrayList.get(i) instanceof Student) {
+                temp.add(userArrayList.get(i).getId());
+                temp.add(userArrayList.get(i).getFirstname());
+                temp.add(userArrayList.get(i).getLastname());
+                temp.add(userArrayList.get(i).getEmail());
+            }
+        }
+        return temp;
+    }*/
+    
+    public static ArrayList<Student> displayStudent() {
+        ArrayList<Student> studentArrayList = new ArrayList<Student>();
+        for (int i = 0; i < userArrayList.size(); i++) {
+            if (userArrayList.get(i) instanceof Student) {
+                studentArrayList.add((Student) userArrayList.get(i));
+            }
+        }
+        return studentArrayList;
+    }
+
 }

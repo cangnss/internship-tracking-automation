@@ -12,6 +12,7 @@ import java.util.Date;
  * @author Can
  */
 public abstract class User {
+
     private int id;
     private String firstname;
     private String lastname;
@@ -23,8 +24,8 @@ public abstract class User {
     private String address;
     private String phone;
     private String photo;
-    
-    public User(String firstname, String lastname, String birthday, String faculty_name, String department_name, String email, String password, String address, String phone, String photo){
+
+    public User(String firstname, String lastname, String birthday, String faculty_name, String department_name, String email, String password, String address, String phone, String photo) {
         this.id++;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -37,7 +38,7 @@ public abstract class User {
         this.phone = phone;
         this.photo = photo;
     }
-    
+
     /**
      * @return the id
      */
@@ -114,19 +115,19 @@ public abstract class User {
     public String getPhoto() {
         return photo;
     }
-    
-    @Override
-    public String toString(){
-        return "Firstname: " + getFirstname() + "\n"
-               +"Lastname: " + getLastname() + "\n"
-               +"Birthday: " + getBirthday() + "\n"
-               +"Faculty name: " + getFaculty_name() + "\n"
-               +"Department name: " + getDepartment_name() + "\n"
-               +"E-mail: " + getEmail() + "\n"
-               +"Password: " + getPassword() + "\n"
-               +"Address: " + getAddress() + "\n"
-               +"Phone: " + getPhone() + "\n"
-               +"Photo: " + getPhoto();
-    }
-}
 
+    @Override
+    public String toString() {
+        return "Firstname: " + getFirstname() + "\n"
+                + "Lastname: " + getLastname() + "\n"
+                + "Birthday: " + getBirthday() + "\n"
+                + "Faculty name: " + getFaculty_name() + "\n"
+                + "Department name: " + getDepartment_name() + "\n"
+                + "E-mail: " + getEmail() + "\n"
+                + "Password: " + getPassword() + "\n"
+                + "Address: " + getAddress() + "\n"
+                + "Phone: " + getPhone() + "\n"
+                + "Photo: " + getPhoto();
+    }
+
+}

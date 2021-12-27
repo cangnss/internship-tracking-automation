@@ -11,21 +11,21 @@ import java.util.Date;
  *
  * @author Can
  */
-public class Student extends User{
+public class Student extends User {
+
     private int student_id;
     private static int student_no;
     private double gano;
-    private static int totalStudent=0;
-    
-    public Student(String fisrtname, String lastname, String birthday, String faculty_name, String department_name, String email, String password, String address, String phone, String photo, int student_no, double gano) {
-        super(fisrtname, lastname, birthday, faculty_name, department_name, email, password, address, phone, photo);
+    private static int totalStudent = 0;
+
+    public Student(String firstname, String lastname, String birthday, String faculty_name, String department_name, String email, String password, String address, String phone, String photo, int student_no, double gano) {
+        super(firstname, lastname, birthday, faculty_name, department_name, email, password, address, phone, photo);
         this.student_id++;
         this.student_no = student_no;
         this.gano = gano;
         totalStudent++;
     }
-    
-    
+
     /**
      * @return the student_id
      */
@@ -46,19 +46,19 @@ public class Student extends User{
     public double getGano() {
         return gano;
     }
-    
+
     /**
      * @return the totalStudent
      */
     public static int getTotalStudent() {
         return totalStudent;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return super.toString() + "\n"
-               +"Student no: " + getStudent_no() + "\n"
-               +"Gano: " + getGano();
+                + "Student no: " + getStudent_no() + "\n"
+                + "Gano: " + getGano();
     }
 
 }

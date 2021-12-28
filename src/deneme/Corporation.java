@@ -19,6 +19,8 @@ public class Corporation {
     private String c_address;
     private String c_sector;
     private String c_photo;
+    private static int totalCorporationCount=0;
+    
     
     public Corporation(int id, String c_name, String c_email, String c_password, String c_phone, String c_type, String c_address, String c_sector, String c_photo){
         this.id = id;
@@ -31,6 +33,7 @@ public class Corporation {
         this.c_sector = c_sector;
         this.c_phone = c_phone;
         this.c_photo = c_photo;
+        totalCorporationCount++;
     }
 
     /**
@@ -104,6 +107,13 @@ public class Corporation {
                +"Corporation Type: " + getC_type() + "\n"
                +"Corporation Sector: " + getC_sector() + "\n"
                +"Corporation Photo: " + getC_photo();
+    }
+
+    /**
+     * @return the totalCorporationCount
+     */
+    public static int getTotalCorporationCount() {
+        return totalCorporationCount;
     }
     
 }

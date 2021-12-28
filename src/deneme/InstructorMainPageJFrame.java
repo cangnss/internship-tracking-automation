@@ -27,14 +27,11 @@ import javax.swing.table.TableRowSorter;
  */
 public class InstructorMainPageJFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form InstructorMainPageJFrame
-     */
-    
     DefaultTableModel dtm;
 
     public InstructorMainPageJFrame() {
         initComponents();
+        dtm = (DefaultTableModel) table.getModel();
         ArrayList<Student> student = UserController.displayStudent();
         Object[] array = new Object[4];
         for (int i = 0; i < student.size(); i++) {
@@ -44,9 +41,12 @@ public class InstructorMainPageJFrame extends javax.swing.JFrame {
             array[3] = student.get(i).getEmail();
             dtm.addRow(array);
         }
-        
+
     }
 
+    /**
+     * Creates new form InstructorMainPageJFrame
+     */
     /*public InstructorMainPageJFrame() {
         initComponents();
         ArrayList<Student> student = UserController.displayStudent();
@@ -85,22 +85,11 @@ public class InstructorMainPageJFrame extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Student:");
 
-        studentCB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                studentCBActionPerformed(evt);
-            }
-        });
-
         button1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         button1.setLabel("Check Information");
         button1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 button1MouseClicked(evt);
-            }
-        });
-        button1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button1ActionPerformed(evt);
             }
         });
 
@@ -111,10 +100,28 @@ public class InstructorMainPageJFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-
+                "Student No", "Firstname", "Lastname", "Email"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(table);
+        if (table.getColumnModel().getColumnCount() > 0) {
+            table.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -179,14 +186,6 @@ public class InstructorMainPageJFrame extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_button1MouseClicked
-
-    private void studentCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentCBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_studentCBActionPerformed
-
-    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_button1ActionPerformed
 
     /**
      * @param args the command line arguments

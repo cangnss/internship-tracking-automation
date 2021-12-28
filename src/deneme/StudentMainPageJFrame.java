@@ -29,7 +29,7 @@ public class StudentMainPageJFrame extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         fileUploadTf = new javax.swing.JTextField();
-        uploadFile = new javax.swing.JButton();
+        uploadFileBtn = new javax.swing.JButton();
         messageLabelFromStudent = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -38,7 +38,12 @@ public class StudentMainPageJFrame extends javax.swing.JFrame {
 
         jLabel1.setText("Dosya Yükle:");
 
-        uploadFile.setText("UPLOAD");
+        uploadFileBtn.setText("UPLOAD");
+        uploadFileBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                uploadFileBtnMouseClicked(evt);
+            }
+        });
 
         messageLabelFromStudent.setText("jLabel2");
 
@@ -55,7 +60,7 @@ public class StudentMainPageJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(uploadFile)
+                            .addComponent(uploadFileBtn)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -81,12 +86,18 @@ public class StudentMainPageJFrame extends javax.swing.JFrame {
                     .addComponent(fileUploadTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(messageLabelFromStudent))
                 .addGap(18, 18, 18)
-                .addComponent(uploadFile)
+                .addComponent(uploadFileBtn)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void uploadFileBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_uploadFileBtnMouseClicked
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_uploadFileBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -129,6 +140,6 @@ public class StudentMainPageJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel messageLabelFromStudent;
-    private javax.swing.JButton uploadFile;
+    private javax.swing.JButton uploadFileBtn;
     // End of variables declaration//GEN-END:variables
 }

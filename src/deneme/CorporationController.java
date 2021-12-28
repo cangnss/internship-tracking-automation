@@ -22,7 +22,7 @@ public class CorporationController {
     public static boolean checkCorporation(int studentNo){
         for (int i = 0; i < corporationArrayList.size(); i++) {
             if (corporationArrayList.get(i) instanceof Corporation) {
-                int totalCorporation = Corporation.getTotalCorporation();
+                int totalCorporation = Corporation.getTotalCorporationCount();
                 for (int j = 0; j < totalCorporation; j++) {
                     if (Student.getStudent_no() == studentNo) {
                         return true;

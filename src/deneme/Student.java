@@ -18,7 +18,7 @@ public class Student extends User {
     private double gano;
     private static int totalStudent = 0;
 
-    public Student(String firstname, String lastname, String birthday, String faculty_name, String department_name, String email, char[] password, String address, String phone, String photo, int student_no, double gano) {
+    public Student(String firstname, String lastname, String birthday, String faculty_name, String department_name, String email, String password, String address, String phone, String photo, int student_no, double gano) {
         super(firstname, lastname, birthday, faculty_name, department_name, email, password, address, phone, photo);
         this.student_id++;
         this.student_no = student_no;

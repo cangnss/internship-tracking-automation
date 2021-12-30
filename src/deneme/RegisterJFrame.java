@@ -69,8 +69,8 @@ public class RegisterJFrame extends javax.swing.JFrame {
         studentPhotoTf = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
         studentNoTf = new javax.swing.JTextField();
-        studentPasswordTf = new javax.swing.JPasswordField();
         uploadPhotoBtn = new javax.swing.JButton();
+        studentPasswordTf = new javax.swing.JPasswordField();
         instructorRegisterPanel = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -93,8 +93,8 @@ public class RegisterJFrame extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         instructorPhotoTf = new javax.swing.JTextField();
-        instructorPasswordTf = new javax.swing.JPasswordField();
         uploadPhotoInstructorBtn = new javax.swing.JButton();
+        instructorPasswordTf = new javax.swing.JPasswordField();
         corporationRegisterPanel = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
@@ -111,8 +111,8 @@ public class RegisterJFrame extends javax.swing.JFrame {
         corporationAddressTf = new javax.swing.JTextField();
         corporationSector = new javax.swing.JComboBox<>();
         corporationPhoto = new javax.swing.JTextField();
-        corporationPasswordTf = new javax.swing.JPasswordField();
         corporationUploadPhotoBtn = new javax.swing.JButton();
+        corporationPasswordTf = new javax.swing.JPasswordField();
         registerBtn = new javax.swing.JButton();
         messageLabel = new javax.swing.JLabel();
 
@@ -223,26 +223,27 @@ public class RegisterJFrame extends javax.swing.JFrame {
                         .addComponent(jLabel32)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(studentNoTf))
-                    .addGroup(studentRegisterPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(20, 20, 20)
-                        .addComponent(studentPasswordTf))
-                    .addGroup(studentRegisterPanelLayout.createSequentialGroup()
-                        .addGroup(studentRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(studentRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(studentFirstnameTf)
-                            .addComponent(studentLastnameTf)
-                            .addComponent(studentBirthdayTf)
-                            .addComponent(studentFacultyCB, 0, 183, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, studentRegisterPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(uploadPhotoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(uploadPhotoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(studentRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(studentRegisterPanelLayout.createSequentialGroup()
+                            .addComponent(jLabel8)
+                            .addGap(18, 18, 18)
+                            .addComponent(studentPasswordTf))
+                        .addGroup(studentRegisterPanelLayout.createSequentialGroup()
+                            .addGroup(studentRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4))
+                            .addGap(18, 18, 18)
+                            .addGroup(studentRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(studentFirstnameTf)
+                                .addComponent(studentLastnameTf)
+                                .addComponent(studentBirthdayTf)
+                                .addComponent(studentFacultyCB, 0, 183, Short.MAX_VALUE))
+                            .addGap(0, 0, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         studentRegisterPanelLayout.setVerticalGroup(
@@ -384,15 +385,11 @@ public class RegisterJFrame extends javax.swing.JFrame {
                             .addComponent(jLabel20)
                             .addComponent(jLabel21)
                             .addComponent(jLabel22))
+                        .addGap(18, 18, 18)
                         .addGroup(instructorRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(instructorRegisterPanelLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(instructorRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(instructorAddressTf)
-                                    .addComponent(instructorPhoneTf)))
-                            .addGroup(instructorRegisterPanelLayout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(instructorPasswordTf))))
+                            .addComponent(instructorAddressTf)
+                            .addComponent(instructorPhoneTf)
+                            .addComponent(instructorPasswordTf)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, instructorRegisterPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(uploadPhotoInstructorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -654,7 +651,7 @@ public class RegisterJFrame extends javax.swing.JFrame {
             String department_name = studentDepartmentCB.getSelectedItem().toString();
             String instructor = instructorCB.getSelectedItem().toString();
             String email = studentEmailTf.getText();
-            char[] password = studentPasswordTf.getPassword();
+            String password = studentPasswordTf.getText();
             double gano = Double.parseDouble(studentGanoTf.getText());
             String address = studentAddressTf.getText();
             String phone = studentPhoneTf.getText();
@@ -664,7 +661,7 @@ public class RegisterJFrame extends javax.swing.JFrame {
             Student student = new Student(firstname, lastname, birthday, faculty_name, department_name, email, password, address, phone, photo, studentNo, gano);
             UserController.registerUser(student);
             messageLabel.setText("Student added");
-
+            System.out.println(password);
             studentFirstnameTf.setText("");
             studentLastnameTf.setText("");
             studentBirthdayTf.setText("");
@@ -687,13 +684,14 @@ public class RegisterJFrame extends javax.swing.JFrame {
             String department_name = instructorDepartmentCB.getSelectedItem().toString();
             String username = usernameTf.getText();
             String email = instructorFirstnameTf.getText();
-            char[] password = instructorPasswordTf.getPassword();
+            String password = instructorPasswordTf.getText();
             String address = instructorAddressTf.getText();
             String phone = instructorPhoneTf.getText();
             String photo = instructorPhotoTf.getText();
             Instructor instructor = new Instructor(firstname, lastname, birthday, faculty_name, department_name, email, password, address, phone, photo, username);
             UserController.registerUser(instructor);
             messageLabel.setText("Instructor added");
+            System.out.println(password);
 
             instructorFirstnameTf.setText("");
             instructorLastnameTf.setText("");
@@ -710,13 +708,13 @@ public class RegisterJFrame extends javax.swing.JFrame {
         if (corporationRegisterRB.isSelected()) {
             String c_name = corporationNameTf.getText();
             String c_email = corporationEmailTf.getText();
-            char[] c_password = corporationPasswordTf.getPassword();
+            String c_password = new String(corporationPasswordTf.getPassword());
             String c_phone = corporationPhoneTf.getText();
             String c_type = corporationTypeCB.getSelectedItem().toString();
             String c_address = corporationAddressTf.getText();
             String c_sector = corporationSector.getSelectedItem().toString();
             String c_photo = corporationPhoto.getText();
-            
+
             Corporation corporation = new Corporation(c_name, c_email, c_password, c_phone, c_type, c_address, c_sector, c_photo);
             CorporationController.registerCorporation(corporation);
             messageLabel.setText("Corporation added");
@@ -757,7 +755,7 @@ public class RegisterJFrame extends javax.swing.JFrame {
         File f = chooser.getSelectedFile();
         jLabel1.setIcon(new ImageIcon(f.toString()));
         filename = f.getAbsolutePath();
-        studentPhotoTf.setText(filename);
+        instructorPhotoTf.setText(filename);
 
         try {
             File image = new File(filename);
@@ -780,7 +778,7 @@ public class RegisterJFrame extends javax.swing.JFrame {
         File f = chooser.getSelectedFile();
         jLabel1.setIcon(new ImageIcon(f.toString()));
         filename = f.getAbsolutePath();
-        studentPhotoTf.setText(filename);
+        corporationPhoto.setText(filename);
 
         try {
             File image = new File(filename);

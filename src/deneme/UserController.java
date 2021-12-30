@@ -41,7 +41,6 @@ public class UserController {
                     if (Instructor.getUsername().equals(username)) {
                         return true;
                     }
-
                 }
             }
 

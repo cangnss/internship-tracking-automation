@@ -20,12 +20,12 @@ public abstract class User {
     private String faculty_name;
     private String department_name;
     private String email;
-    private String password;
+    private char[] password;
     private String address;
     private String phone;
     private String photo;
 
-    public User(String firstname, String lastname, String birthday, String faculty_name, String department_name, String email, String password, String address, String phone, String photo) {
+    public User(String firstname, String lastname, String birthday, String faculty_name, String department_name, String email, char[] password, String address, String phone, String photo) {
         this.id++;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -91,7 +91,7 @@ public abstract class User {
     /**
      * @return the password
      */
-    public String getPassword() {
+    public char[] getPassword() {
         return password;
     }
 

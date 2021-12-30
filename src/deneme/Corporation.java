@@ -11,9 +11,9 @@ package deneme;
  */
 public class Corporation {
     private int id;
-    private String c_name;
+    private static String c_name;
     private String c_email;
-    private String c_password;
+    private char[] c_password;
     private String c_phone;
     private String c_type;
     private String c_address;
@@ -22,8 +22,8 @@ public class Corporation {
     private static int totalCorporationCount=0;
     
     
-    public Corporation(int id, String c_name, String c_email, String c_password, String c_phone, String c_type, String c_address, String c_sector, String c_photo){
-        this.id = id;
+    public Corporation(String c_name, String c_email, char[] c_password, String c_phone, String c_type, String c_address, String c_sector, String c_photo){
+        this.id++;
         this.c_name = c_name;
         this.c_email = c_email;
         this.c_password = c_password;
@@ -46,7 +46,7 @@ public class Corporation {
     /**
      * @return the c_name
      */
-    public String getC_name() {
+    public static String getC_name() {
         return c_name;
     }
 
@@ -60,7 +60,7 @@ public class Corporation {
     /**
      * @return the c_password
      */
-    public String getC_password() {
+    public char[] getC_password() {
         return c_password;
     }
 

@@ -5,11 +5,20 @@
  */
 package deneme;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author Can
  */
 public class RegisterJFrame extends javax.swing.JFrame {
+
+    byte[] photo = null;
+    String filename = null;
 
     /**
      * Creates new form RegisterJFrame
@@ -54,13 +63,14 @@ public class RegisterJFrame extends javax.swing.JFrame {
         studentDepartmentCB = new javax.swing.JComboBox<>();
         instructorCB = new javax.swing.JComboBox<>();
         studentEmailTf = new javax.swing.JTextField();
-        studentPasswordTf = new javax.swing.JTextField();
         studentGanoTf = new javax.swing.JTextField();
         studentAddressTf = new javax.swing.JTextField();
         studentPhoneTf = new javax.swing.JTextField();
         studentPhotoTf = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
         studentNoTf = new javax.swing.JTextField();
+        studentPasswordTf = new javax.swing.JPasswordField();
+        uploadPhotoBtn = new javax.swing.JButton();
         instructorRegisterPanel = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -77,13 +87,14 @@ public class RegisterJFrame extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         instructorEmailTf = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        instructorPasswordTf = new javax.swing.JTextField();
         instructorPhoneTf = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         instructorAddressTf = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         instructorPhotoTf = new javax.swing.JTextField();
+        instructorPasswordTf = new javax.swing.JPasswordField();
+        uploadPhotoInstructorBtn = new javax.swing.JButton();
         corporationRegisterPanel = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
@@ -95,12 +106,13 @@ public class RegisterJFrame extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         corporationNameTf = new javax.swing.JTextField();
         corporationEmailTf = new javax.swing.JTextField();
-        corporationPasswordTf = new javax.swing.JTextField();
         corporationPhoneTf = new javax.swing.JTextField();
         corporationTypeCB = new javax.swing.JComboBox<>();
         corporationAddressTf = new javax.swing.JTextField();
         corporationSector = new javax.swing.JComboBox<>();
         corporationPhoto = new javax.swing.JTextField();
+        corporationPasswordTf = new javax.swing.JPasswordField();
+        corporationUploadPhotoBtn = new javax.swing.JButton();
         registerBtn = new javax.swing.JButton();
         messageLabel = new javax.swing.JLabel();
 
@@ -165,6 +177,13 @@ public class RegisterJFrame extends javax.swing.JFrame {
 
         jLabel32.setText("Student No: ");
 
+        uploadPhotoBtn.setText("UPLOAD PHOTO");
+        uploadPhotoBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                uploadPhotoBtnMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout studentRegisterPanelLayout = new javax.swing.GroupLayout(studentRegisterPanel);
         studentRegisterPanel.setLayout(studentRegisterPanelLayout);
         studentRegisterPanelLayout.setHorizontalGroup(
@@ -185,10 +204,6 @@ public class RegisterJFrame extends javax.swing.JFrame {
                         .addGap(38, 38, 38)
                         .addComponent(studentEmailTf))
                     .addGroup(studentRegisterPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(18, 18, 18)
-                        .addComponent(studentPasswordTf))
-                    .addGroup(studentRegisterPanelLayout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(39, 39, 39)
                         .addComponent(studentGanoTf))
@@ -205,6 +220,14 @@ public class RegisterJFrame extends javax.swing.JFrame {
                         .addGap(36, 36, 36)
                         .addComponent(studentPhotoTf))
                     .addGroup(studentRegisterPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel32)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(studentNoTf))
+                    .addGroup(studentRegisterPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(20, 20, 20)
+                        .addComponent(studentPasswordTf))
+                    .addGroup(studentRegisterPanelLayout.createSequentialGroup()
                         .addGroup(studentRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
@@ -217,10 +240,9 @@ public class RegisterJFrame extends javax.swing.JFrame {
                             .addComponent(studentBirthdayTf)
                             .addComponent(studentFacultyCB, 0, 183, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(studentRegisterPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel32)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(studentNoTf)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, studentRegisterPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(uploadPhotoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         studentRegisterPanelLayout.setVerticalGroup(
@@ -254,10 +276,10 @@ public class RegisterJFrame extends javax.swing.JFrame {
                 .addGroup(studentRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(studentEmailTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(studentRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(studentPasswordTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
+                .addGap(21, 21, 21)
+                .addGroup(studentRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(studentPasswordTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(studentRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -274,11 +296,13 @@ public class RegisterJFrame extends javax.swing.JFrame {
                 .addGroup(studentRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(studentPhotoTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(uploadPhotoBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(studentRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel32)
                     .addComponent(studentNoTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         instructorRegisterPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Instructor"));
@@ -308,6 +332,13 @@ public class RegisterJFrame extends javax.swing.JFrame {
         jLabel22.setText("Phone: ");
 
         jLabel23.setText("Photo: ");
+
+        uploadPhotoInstructorBtn.setText("UPLOAD PHOTO");
+        uploadPhotoInstructorBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                uploadPhotoInstructorBtnMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout instructorRegisterPanelLayout = new javax.swing.GroupLayout(instructorRegisterPanel);
         instructorRegisterPanel.setLayout(instructorRegisterPanelLayout);
@@ -353,11 +384,18 @@ public class RegisterJFrame extends javax.swing.JFrame {
                             .addComponent(jLabel20)
                             .addComponent(jLabel21)
                             .addComponent(jLabel22))
-                        .addGap(18, 18, 18)
                         .addGroup(instructorRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(instructorPasswordTf)
-                            .addComponent(instructorAddressTf)
-                            .addComponent(instructorPhoneTf))))
+                            .addGroup(instructorRegisterPanelLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(instructorRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(instructorAddressTf)
+                                    .addComponent(instructorPhoneTf)))
+                            .addGroup(instructorRegisterPanelLayout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(instructorPasswordTf))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, instructorRegisterPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(uploadPhotoInstructorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         instructorRegisterPanelLayout.setVerticalGroup(
@@ -407,7 +445,9 @@ public class RegisterJFrame extends javax.swing.JFrame {
                 .addGroup(instructorRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(instructorPhotoTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel23))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(uploadPhotoInstructorBtn)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         corporationRegisterPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Corporation"));
@@ -432,6 +472,13 @@ public class RegisterJFrame extends javax.swing.JFrame {
 
         corporationSector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        corporationUploadPhotoBtn.setText("UPLOAD PHOTO");
+        corporationUploadPhotoBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                corporationUploadPhotoBtnMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout corporationRegisterPanelLayout = new javax.swing.GroupLayout(corporationRegisterPanel);
         corporationRegisterPanel.setLayout(corporationRegisterPanelLayout);
         corporationRegisterPanelLayout.setHorizontalGroup(
@@ -455,12 +502,15 @@ public class RegisterJFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(corporationRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(corporationEmailTf)
-                            .addComponent(corporationPasswordTf)
                             .addComponent(corporationPhoneTf)
                             .addComponent(corporationTypeCB, 0, 213, Short.MAX_VALUE)
                             .addComponent(corporationAddressTf)
                             .addComponent(corporationSector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(corporationPhoto))))
+                            .addComponent(corporationPhoto)
+                            .addComponent(corporationPasswordTf)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, corporationRegisterPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(corporationUploadPhotoBtn)))
                 .addContainerGap())
         );
         corporationRegisterPanelLayout.setVerticalGroup(
@@ -498,7 +548,9 @@ public class RegisterJFrame extends javax.swing.JFrame {
                 .addGroup(corporationRegisterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel31)
                     .addComponent(corporationPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(244, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(corporationUploadPhotoBtn)
+                .addContainerGap(203, Short.MAX_VALUE))
         );
 
         registerBtn.setText("Register");
@@ -517,49 +569,54 @@ public class RegisterJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(studentRegisterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(instructorRegisterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
-                                .addComponent(messageLabel)))
-                        .addGap(18, 18, 18)
-                        .addComponent(corporationRegisterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(studentRegisterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(studentRegisterRB)
                         .addGap(18, 18, 18)
                         .addComponent(instructorRegisterRB)
                         .addGap(18, 18, 18)
                         .addComponent(corporationRegisterRB)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(instructorRegisterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(corporationRegisterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(messageLabel)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(studentRegisterRB)
-                    .addComponent(instructorRegisterRB)
-                    .addComponent(corporationRegisterRB))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(corporationRegisterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(instructorRegisterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(studentRegisterPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(messageLabel)
+                                .addGap(28, 28, 28)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(corporationRegisterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(3, 3, 3))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(instructorRegisterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(68, 68, 68))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(studentRegisterRB)
+                            .addComponent(instructorRegisterRB)
+                            .addComponent(corporationRegisterRB))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(messageLabel)
-                        .addGap(48, 48, 48))))
+                        .addComponent(studentRegisterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         pack();
@@ -597,7 +654,7 @@ public class RegisterJFrame extends javax.swing.JFrame {
             String department_name = studentDepartmentCB.getSelectedItem().toString();
             String instructor = instructorCB.getSelectedItem().toString();
             String email = studentEmailTf.getText();
-            String password = studentPasswordTf.getText();
+            char[] password = studentPasswordTf.getPassword();
             double gano = Double.parseDouble(studentGanoTf.getText());
             String address = studentAddressTf.getText();
             String phone = studentPhoneTf.getText();
@@ -620,24 +677,24 @@ public class RegisterJFrame extends javax.swing.JFrame {
             studentNoTf.setText("");
 
         }
-        
-        if(instructorRegisterRB.isSelected()){
-        
+
+        if (instructorRegisterRB.isSelected()) {
+
             String firstname = instructorFirstnameTf.getText();
             String lastname = instructorLastnameTf.getText();
             String birthday = instructorBirthdayTf.getText();
             String faculty_name = instrucotFacultyCB.getSelectedItem().toString();
             String department_name = instructorDepartmentCB.getSelectedItem().toString();
-            String username=usernameTf.getText();
+            String username = usernameTf.getText();
             String email = instructorFirstnameTf.getText();
-            String password = instructorPasswordTf.getText();
-            String address=instructorAddressTf.getText();
+            char[] password = instructorPasswordTf.getPassword();
+            String address = instructorAddressTf.getText();
             String phone = instructorPhoneTf.getText();
             String photo = instructorPhotoTf.getText();
-            Instructor instructor=new Instructor(firstname, lastname, birthday, faculty_name, department_name,email, password, address, phone, photo, username);
+            Instructor instructor = new Instructor(firstname, lastname, birthday, faculty_name, department_name, email, password, address, phone, photo, username);
             UserController.registerUser(instructor);
             messageLabel.setText("Instructor added");
-            
+
             instructorFirstnameTf.setText("");
             instructorLastnameTf.setText("");
             instructorBirthdayTf.setText("");
@@ -647,14 +704,97 @@ public class RegisterJFrame extends javax.swing.JFrame {
             instructorAddressTf.setText("");
             instructorPhoneTf.setText("");
             instructorPhotoTf.setText("");
+
+        }
+
+        if (corporationRegisterRB.isSelected()) {
+            String c_name = corporationNameTf.getText();
+            String c_email = corporationEmailTf.getText();
+            char[] c_password = corporationPasswordTf.getPassword();
+            String c_phone = corporationPhoneTf.getText();
+            String c_type = corporationTypeCB.getSelectedItem().toString();
+            String c_address = corporationAddressTf.getText();
+            String c_sector = corporationSector.getSelectedItem().toString();
+            String c_photo = corporationPhoto.getText();
             
-            
+            Corporation corporation = new Corporation(c_name, c_email, c_password, c_phone, c_type, c_address, c_sector, c_photo);
+            CorporationController.registerCorporation(corporation);
+            messageLabel.setText("Corporation added");
+
         }
         this.dispose();
-        
-        
-        
+
+
     }//GEN-LAST:event_registerBtnMouseClicked
+
+    private void uploadPhotoBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_uploadPhotoBtnMouseClicked
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        //jLabel1.setIcon(new ImageIcon(f.toString()));
+        filename = f.getAbsolutePath();
+        studentPhotoTf.setText(filename);
+
+        try {
+            File image = new File(filename);
+            FileInputStream fis = new FileInputStream(image);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            for (int i; (i = fis.read(buf)) != -1;) {
+                bos.write(buf, 0, i);
+            }
+            photo = bos.toByteArray();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_uploadPhotoBtnMouseClicked
+
+    private void uploadPhotoInstructorBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_uploadPhotoInstructorBtnMouseClicked
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        jLabel1.setIcon(new ImageIcon(f.toString()));
+        filename = f.getAbsolutePath();
+        studentPhotoTf.setText(filename);
+
+        try {
+            File image = new File(filename);
+            FileInputStream fis = new FileInputStream(image);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            for (int i; (i = fis.read(buf)) != -1;) {
+                bos.write(buf, 0, i);
+            }
+            photo = bos.toByteArray();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_uploadPhotoInstructorBtnMouseClicked
+
+    private void corporationUploadPhotoBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_corporationUploadPhotoBtnMouseClicked
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        jLabel1.setIcon(new ImageIcon(f.toString()));
+        filename = f.getAbsolutePath();
+        studentPhotoTf.setText(filename);
+
+        try {
+            File image = new File(filename);
+            FileInputStream fis = new FileInputStream(image);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            for (int i; (i = fis.read(buf)) != -1;) {
+                bos.write(buf, 0, i);
+            }
+            photo = bos.toByteArray();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_corporationUploadPhotoBtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -696,13 +836,14 @@ public class RegisterJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField corporationAddressTf;
     private javax.swing.JTextField corporationEmailTf;
     private javax.swing.JTextField corporationNameTf;
-    private javax.swing.JTextField corporationPasswordTf;
+    private javax.swing.JPasswordField corporationPasswordTf;
     private javax.swing.JTextField corporationPhoneTf;
     private javax.swing.JTextField corporationPhoto;
     private javax.swing.JPanel corporationRegisterPanel;
     private javax.swing.JRadioButton corporationRegisterRB;
     private javax.swing.JComboBox<String> corporationSector;
     private javax.swing.JComboBox<String> corporationTypeCB;
+    private javax.swing.JButton corporationUploadPhotoBtn;
     private javax.swing.JComboBox<String> instrucotFacultyCB;
     private javax.swing.JTextField instructorAddressTf;
     private javax.swing.JTextField instructorBirthdayTf;
@@ -711,7 +852,7 @@ public class RegisterJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField instructorEmailTf;
     private javax.swing.JTextField instructorFirstnameTf;
     private javax.swing.JTextField instructorLastnameTf;
-    private javax.swing.JTextField instructorPasswordTf;
+    private javax.swing.JPasswordField instructorPasswordTf;
     private javax.swing.JTextField instructorPhoneTf;
     private javax.swing.JTextField instructorPhotoTf;
     private javax.swing.JPanel instructorRegisterPanel;
@@ -759,11 +900,13 @@ public class RegisterJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField studentGanoTf;
     private javax.swing.JTextField studentLastnameTf;
     private javax.swing.JTextField studentNoTf;
-    private javax.swing.JTextField studentPasswordTf;
+    private javax.swing.JPasswordField studentPasswordTf;
     private javax.swing.JTextField studentPhoneTf;
     private javax.swing.JTextField studentPhotoTf;
     private javax.swing.JPanel studentRegisterPanel;
     private javax.swing.JRadioButton studentRegisterRB;
+    private javax.swing.JButton uploadPhotoBtn;
+    private javax.swing.JButton uploadPhotoInstructorBtn;
     private javax.swing.JTextField usernameTf;
     // End of variables declaration//GEN-END:variables
 }

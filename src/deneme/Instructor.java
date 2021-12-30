@@ -17,7 +17,7 @@ public class Instructor extends User {
     private static String username;
     private static int totalInstructor = 0;
 
-    public Instructor(String firstname, String lastname, String birthday, String faculty_name, String department_name, String email, String password, String address, String phone, String photo, String username) {
+    public Instructor(String firstname, String lastname, String birthday, String faculty_name, String department_name, String email, char[] password, String address, String phone, String photo, String username) {
         super(firstname, lastname, birthday, faculty_name, department_name, email, password, address, phone, photo);
         this.instructor_id++;
         this.username = username;

@@ -14,15 +14,19 @@ import java.util.Date;
 public class Student extends User {
 
     private int student_id;
-    private static int student_no;
+    private int student_no;
     private double gano;
+    private String corporation_name;
     private static int totalStudent = 0;
-
-    public Student(String firstname, String lastname, String birthday, String faculty_name, String department_name, String email, String password, String address, String phone, String photo, int student_no, double gano) {
+    private static boolean internStatus = false;
+    
+    
+    public Student(int student_no, String firstname, String lastname, String birthday, String faculty_name, String department_name, String email, String password, String address, String phone, String photo, double gano, String corporation_name) {
         super(firstname, lastname, birthday, faculty_name, department_name, email, password, address, phone, photo);
-        this.student_id++;
+        this.student_id = totalStudent + student_id + 1;
         this.student_no = student_no;
         this.gano = gano;
+        this.corporation_name = corporation_name;
         totalStudent++;
     }
 
@@ -36,7 +40,7 @@ public class Student extends User {
     /**
      * @return the student_no
      */
-    public static int getStudent_no() {
+    public int getStudent_no() {
         return student_no;
     }
 
@@ -59,6 +63,20 @@ public class Student extends User {
         return super.toString() + "\n"
                 + "Student no: " + getStudent_no() + "\n"
                 + "Gano: " + getGano() + "\n*****************************";
+    }
+
+    /**
+     * @return the internStatus
+     */
+    public static boolean isInternStatus() {
+        return internStatus;
+    }
+
+    /**
+     * @param internStatus the internStatus to set
+     */
+    public static void setInternStatus(boolean internStatus) {
+        Student.internStatus = internStatus;
     }
 
 }

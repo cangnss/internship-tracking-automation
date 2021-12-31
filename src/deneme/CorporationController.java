@@ -19,12 +19,12 @@ public class CorporationController {
         corporationArrayList.add(corporation);
     }
     
-    public static boolean checkCorporation(String corporationName){
+    public static boolean checkCorporation(String corporationEmail){
         for (int i = 0; i < corporationArrayList.size(); i++) {
             if (corporationArrayList.get(i) instanceof Corporation) {
                 int totalCorporation = Corporation.getTotalCorporationCount();
                 for (int j = 0; j < totalCorporation; j++) {
-                    if (Corporation.getC_name().equals(corporationName)) {
+                    if (Corporation.getC_email().equals(corporationEmail)) {
                         return true;
                     }
                 }
@@ -32,6 +32,11 @@ public class CorporationController {
         }
         return false;
     }
+    
+    public static ArrayList<Corporation> getAllCorporation(){
+        return corporationArrayList;
+    }
+    
     
     public static String getAllStudent(){
         String res = "";

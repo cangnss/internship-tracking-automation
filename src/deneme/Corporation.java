@@ -11,8 +11,8 @@ package deneme;
  */
 public class Corporation {
     private int id;
-    private static String c_name;
-    private String c_email;
+    private String c_name;
+    private static String c_email;
     private String c_password;
     private String c_phone;
     private String c_type;
@@ -46,14 +46,14 @@ public class Corporation {
     /**
      * @return the c_name
      */
-    public static String getC_name() {
+    public String getC_name() {
         return c_name;
     }
 
     /**
      * @return the c_email
      */
-    public String getC_email() {
+    public static String getC_email() {
         return c_email;
     }
 

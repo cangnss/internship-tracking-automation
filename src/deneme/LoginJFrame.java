@@ -35,14 +35,14 @@ public class LoginJFrame extends javax.swing.JFrame {
         corporationRB = new javax.swing.JRadioButton();
         studentPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        studentNoTf = new javax.swing.JTextField();
+        studentEmailTf = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         passwordTf = new javax.swing.JPasswordField();
         loginBtn = new javax.swing.JButton();
         corporationPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        corporationNoTf = new javax.swing.JTextField();
+        corporationEmailTf = new javax.swing.JTextField();
         passwordCorporationTf = new javax.swing.JPasswordField();
         instructorPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -78,7 +78,7 @@ public class LoginJFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Student No: ");
+        jLabel1.setText("Student Email:");
 
         jLabel2.setText("Password: ");
 
@@ -93,7 +93,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(studentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(studentNoTf, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
+                    .addComponent(studentEmailTf, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
                     .addComponent(passwordTf))
                 .addContainerGap())
         );
@@ -103,7 +103,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(studentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(studentNoTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(studentEmailTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(studentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(studentPanelLayout.createSequentialGroup()
                         .addGap(32, 32, 32)
@@ -121,7 +121,7 @@ public class LoginJFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setText("Corporation No:");
+        jLabel5.setText("Corporation Email:");
 
         jLabel6.setText("Password: ");
 
@@ -137,7 +137,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(corporationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(passwordCorporationTf, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                    .addComponent(corporationNoTf)))
+                    .addComponent(corporationEmailTf)))
         );
         corporationPanelLayout.setVerticalGroup(
             corporationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +145,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(corporationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(corporationNoTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(corporationEmailTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(corporationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -218,7 +218,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                             .addComponent(corporationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(47, 47, 47)))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,9 +267,9 @@ public class LoginJFrame extends javax.swing.JFrame {
     private void loginBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnMouseClicked
         // TODO add your handling code here:
         if (studentRadioBtn.isSelected()) {
-            int studentNo = Integer.parseInt(studentNoTf.getText());
+            String studentEmail = studentEmailTf.getText();
             String studentPassword = new String(passwordTf.getPassword());
-            if(UserController.checkStudent(studentNo)){
+            if(UserController.checkStudent(studentEmail)){
                 messageLabelLogin.setText("Öğrenci giriş yaptı.");
                 StudentMainPageJFrame smpjf = new StudentMainPageJFrame();
                 smpjf.setVisible(true);
@@ -284,9 +284,9 @@ public class LoginJFrame extends javax.swing.JFrame {
                 impjf.setVisible(true);
             }
         } else if(corporationRB.isSelected()){
-            String corporationNo = corporationNoTf.getText();
+            String corporationEmail = corporationEmailTf.getText();
             String corporationPsw = new String(passwordCorporationTf.getPassword());
-            if (CorporationController.checkCorporation(corporationNo)) {
+            if (CorporationController.checkCorporation(corporationEmail)) {
                 CorporationMainPageJFrame cmpjf = new CorporationMainPageJFrame();
                 cmpjf.setVisible(true);
             }
@@ -330,7 +330,7 @@ public class LoginJFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JTextField corporationNoTf;
+    private javax.swing.JTextField corporationEmailTf;
     private javax.swing.JPanel corporationPanel;
     private javax.swing.JRadioButton corporationRB;
     private javax.swing.JPanel instructorPanel;
@@ -346,7 +346,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     private javax.swing.JPasswordField passwordCorporationTf;
     private javax.swing.JPasswordField passwordInstructorTf;
     private javax.swing.JPasswordField passwordTf;
-    private javax.swing.JTextField studentNoTf;
+    private javax.swing.JTextField studentEmailTf;
     private javax.swing.JPanel studentPanel;
     private javax.swing.JRadioButton studentRadioBtn;
     private javax.swing.JTextField usernameTf1;

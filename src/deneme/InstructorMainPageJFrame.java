@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -17,6 +18,8 @@ import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -25,7 +28,7 @@ import javax.swing.table.TableRowSorter;
  *
  * @author Monster
  */
-public class InstructorMainPageJFrame extends javax.swing.JFrame {
+public class InstructorMainPageJFrame extends javax.swing.JFrame{
 
     DefaultTableModel dtm;
 
@@ -33,16 +36,32 @@ public class InstructorMainPageJFrame extends javax.swing.JFrame {
         initComponents();
         dtm = (DefaultTableModel) table.getModel();
         ArrayList<Student> student = UserController.displayStudent();
-        Object[] array = new Object[6];
+        Object[] array = new Object[12];
         for (int i = 0; i < student.size(); i++) {
-            array[0] = student.get(i).getId();
-            array[1] = student.get(i).getFirstname();
-            array[2] = student.get(i).getLastname();
-            array[3] = student.get(i).getEmail();
-            array[4] = false;
-            array[5] = false;
+            array[0] = student.get(i).getStudent_id();
+            array[1] = student.get(i).getStudent_no();
+            array[2] = student.get(i).getFirstname();
+            array[3] = student.get(i).getLastname();
+            array[4] = student.get(i).getFaculty_name();
+            array[5] = student.get(i).getDepartment_name();
+            array[6] = student.get(i).getEmail();
+            array[7] = student.get(i).getPhone();
+            array[8] = student.get(i).getAddress();
+            array[9] = false;
+            array[10] = false;
             dtm.addRow(array);
         }
+        dtm.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                int column = e.getColumn();
+                if (column == 10) {
+                    JOptionPane.showMessageDialog(null, "Staj onaylanmıştır.");
+                    dtm.removeRow(table.getSelectedRow());
+                    Student.setInternStatus(true);
+                }
+            }
+        });
     }
 
     public void filter(String query) {
@@ -85,23 +104,23 @@ public class InstructorMainPageJFrame extends javax.swing.JFrame {
         table = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         searchTextTf = new javax.swing.JTextField();
-        confirmBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null,  new Integer(256), "alican", "gunes", null, null, "a@a.com", null, null, null,  new Boolean(true),  new Boolean(true)},
+                {null,  new Integer(456), "dilek", "gunes", null, null, "d@d.com", null, null, null, null, null}
             },
             new String [] {
-                "Student No", "Firstname", "Lastname", "Email", "PDF", "Intern Status"
+                "Id", "Student No", "Firstname", "Lastname", "Faculty", "Department", "Email", "Phone", "Address", "Corporation Name", "PDF", "Intern Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true
+                false, false, false, false, false, false, false, false, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -122,8 +141,6 @@ public class InstructorMainPageJFrame extends javax.swing.JFrame {
             }
         });
 
-        confirmBtn.setText("CONFIRM");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -131,26 +148,23 @@ public class InstructorMainPageJFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 995, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(searchTextTf, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78)
-                        .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(searchTextTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(confirmBtn))
-                .addContainerGap(70, Short.MAX_VALUE))
+                    .addComponent(searchTextTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -180,6 +194,7 @@ public class InstructorMainPageJFrame extends javax.swing.JFrame {
         filter(query);
     }//GEN-LAST:event_searchTextTfKeyReleased
 
+
     /**
      * @param args the command line arguments
      */
@@ -189,24 +204,9 @@ public class InstructorMainPageJFrame extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InstructorMainPageJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InstructorMainPageJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InstructorMainPageJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InstructorMainPageJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+       
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -216,11 +216,10 @@ public class InstructorMainPageJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton confirmBtn;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField searchTextTf;
-    private javax.swing.JTable table;
+    private static javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }

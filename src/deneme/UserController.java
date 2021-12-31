@@ -19,12 +19,12 @@ public class UserController {
         userArrayList.add(user);
     }
 
-    public static boolean checkStudent(int studentNo) {
+    public static boolean checkStudent(String studentEmail) {
         for (int i = 0; i < userArrayList.size(); i++) {
             if (userArrayList.get(i) instanceof Student) {
                 int totalStudent = Student.getTotalStudent();
                 for (int j = 0; j < totalStudent; j++) {
-                    if (Student.getStudent_no() == studentNo) {
+                    if (userArrayList.get(i).getEmail().equals(studentEmail)) {
                         return true;
                     }
                 }

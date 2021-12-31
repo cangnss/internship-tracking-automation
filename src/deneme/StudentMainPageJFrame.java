@@ -16,6 +16,11 @@ public class StudentMainPageJFrame extends javax.swing.JFrame {
      */
     public StudentMainPageJFrame() {
         initComponents();
+        if (Student.isInternStatus()) {
+            studentInternStatus.setText("Staj onaylanmıştır.");
+        }else{
+            studentInternStatus.setText("Staj onaylanmamamıştır.");
+        }
     }
 
     /**
@@ -32,7 +37,7 @@ public class StudentMainPageJFrame extends javax.swing.JFrame {
         uploadFileBtn = new javax.swing.JButton();
         messageLabelFromStudent = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        studentInternStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,7 +54,7 @@ public class StudentMainPageJFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Status: ");
 
-        jLabel3.setText("jLabel3");
+        studentInternStatus.setText("jLabel3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,7 +75,7 @@ public class StudentMainPageJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel3)))
+                        .addComponent(studentInternStatus)))
                 .addContainerGap(150, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -79,7 +84,7 @@ public class StudentMainPageJFrame extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(studentInternStatus))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -138,8 +143,8 @@ public class StudentMainPageJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField fileUploadTf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel messageLabelFromStudent;
+    private static javax.swing.JLabel studentInternStatus;
     private javax.swing.JButton uploadFileBtn;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,10 @@
  */
 package deneme;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Can
@@ -18,6 +22,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         initComponents();
         instructorPanel.setVisible(false);
         corporationPanel.setVisible(false);
+        this.dispose();
     }
 
     /**
@@ -47,7 +52,7 @@ public class LoginJFrame extends javax.swing.JFrame {
         instructorPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        usernameTf1 = new javax.swing.JTextField();
+        instructorUsernameTf = new javax.swing.JTextField();
         passwordInstructorTf = new javax.swing.JPasswordField();
         messageLabelLogin = new javax.swing.JLabel();
 
@@ -153,7 +158,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        jLabel3.setText("Username: ");
+        jLabel3.setText("Username:");
 
         jLabel4.setText("Password: ");
 
@@ -167,7 +172,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                     .addGroup(instructorPanelLayout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(usernameTf1))
+                        .addComponent(instructorUsernameTf))
                     .addGroup(instructorPanelLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
@@ -181,7 +186,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(instructorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
-                    .addComponent(usernameTf1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(instructorUsernameTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(instructorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -269,28 +274,44 @@ public class LoginJFrame extends javax.swing.JFrame {
         if (studentRadioBtn.isSelected()) {
             String studentEmail = studentEmailTf.getText();
             String studentPassword = new String(passwordTf.getPassword());
-            if(UserController.checkStudent(studentEmail)){
+            if(UserController.checkStudent(studentEmail, studentPassword)){
                 messageLabelLogin.setText("Öğrenci giriş yaptı.");
-                StudentMainPageJFrame smpjf = new StudentMainPageJFrame();
+                StudentMainPageJFrame smpjf = null;
+                try {
+                    smpjf = new StudentMainPageJFrame();
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 smpjf.setVisible(true);
             }
         }
         else if(instructorRadioBtn.isSelected()){
-            String username=usernameTf1.getText();
-            String instructorpassword= new String(passwordInstructorTf.getPassword());
-            if(UserController.checkInstructor(username)){
+            String username = instructorUsernameTf.getText();
+            String instructorPassword= new String(passwordInstructorTf.getPassword());
+            if(UserController.checkInstructor(username, instructorPassword)){
                 messageLabelLogin.setText("Instructor logged in");
-                InstructorMainPageJFrame impjf= new InstructorMainPageJFrame();
+                InstructorMainPageJFrame impjf = null;
+                try {
+                    impjf = new InstructorMainPageJFrame();
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 impjf.setVisible(true);
             }
         } else if(corporationRB.isSelected()){
             String corporationEmail = corporationEmailTf.getText();
             String corporationPsw = new String(passwordCorporationTf.getPassword());
-            if (CorporationController.checkCorporation(corporationEmail)) {
-                CorporationMainPageJFrame cmpjf = new CorporationMainPageJFrame();
+            if (CorporationController.checkCorporation(corporationEmail, corporationPsw)) {
+                CorporationMainPageJFrame cmpjf = null;
+                try {
+                    cmpjf = new CorporationMainPageJFrame();
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 cmpjf.setVisible(true);
             }
         }
+        this.dispose();
     }//GEN-LAST:event_loginBtnMouseClicked
 
     /**
@@ -335,6 +356,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton corporationRB;
     private javax.swing.JPanel instructorPanel;
     private javax.swing.JRadioButton instructorRadioBtn;
+    private javax.swing.JTextField instructorUsernameTf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -349,6 +371,5 @@ public class LoginJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField studentEmailTf;
     private javax.swing.JPanel studentPanel;
     private javax.swing.JRadioButton studentRadioBtn;
-    private javax.swing.JTextField usernameTf1;
     // End of variables declaration//GEN-END:variables
 }

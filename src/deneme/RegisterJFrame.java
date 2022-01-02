@@ -5,13 +5,21 @@
  */
 package deneme;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -20,10 +28,10 @@ import javax.swing.JFileChooser;
  *
  * @author Can
  */
-public class RegisterJFrame extends javax.swing.JFrame implements ActionListener {
+public class RegisterJFrame extends javax.swing.JFrame {
 
-    byte[] photo = null;
-    String filename = null;
+    /*byte[] photo = null;
+    String filename = null;*/
     private Hashtable hash = new Hashtable();
     private Hashtable hash2 = new Hashtable();
 
@@ -37,7 +45,6 @@ public class RegisterJFrame extends javax.swing.JFrame implements ActionListener
         corporationRegisterPanel.setVisible(false);
 
         ArrayList<Corporation> corporations = CorporationController.getAllCorporation();
-        System.out.println(corporations);
         if (corporations.isEmpty()) {
             studentCorporationNameCB.addItem("Corporation yok");
         } else {
@@ -48,114 +55,77 @@ public class RegisterJFrame extends javax.swing.JFrame implements ActionListener
 
         String[] faculty = {"Select an item", "Faculty of Aeronautics and Space", "Faculty of Engineering and Natural Sciences", "Faculty of Health Sciences", "Faculty of Architecture and Fine Arts"};
         studentFacultyCB.setModel(new DefaultComboBoxModel<>(faculty));
-        studentFacultyCB.addActionListener(this);
-        studentDepartmentCB.addActionListener(ac);
+        studentFacultyCB.addItemListener(studentItemIC);
 
-        /* Aerospace */
-        String[] departmentAero = {"Select an item", "Aircraft Engineering"};
-        studentDepartmentCB.setModel(new DefaultComboBoxModel<>(departmentAero));
-        hash.put(faculty[1], departmentAero);
+        String[] facultyInstructor = {"Select an item", "Faculty of Aeronautics and Space", "Faculty of Engineering and Natural Sciences", "Faculty of Health Sciences", "Faculty of Architecture and Fine Arts"};
+        instructorFacultyCB.setModel(new DefaultComboBoxModel<>(facultyInstructor));
+        instructorFacultyCB.addItemListener(instructorItemIC);
 
-        /* Engineering */
-        String[] departmentEngineering = {"Select an item", "Computer Engineering"};
-        studentDepartmentCB.setModel(new DefaultComboBoxModel<>(departmentEngineering));
-        hash.put(faculty[2], departmentEngineering);
-
-        /* Healt Sciences*/
-        String[] departmentSciences = {"Select an item", "Nutrition and Dietetics"};
-        studentDepartmentCB.setModel(new DefaultComboBoxModel<>(departmentSciences));
-        hash.put(faculty[3], departmentSciences);
-
-        /*Architecture*/
-        String[] departmentArch = {"Select an item", "Architecture"};
-        studentDepartmentCB.setModel(new DefaultComboBoxModel<>(departmentArch));
-        hash.put(faculty[4], departmentArch);
-
-
-        /* instructAero*/
-        String[] aeroInstructors = {"Select an item", "Veli ÇELİK", "Mustafa KAYA"};
-        instructorCB.setModel(new DefaultComboBoxModel<>(aeroInstructors));
-        hash.put(departmentAero[1], aeroInstructors);
-
-        /* instructorCeng*/
-        String[] cengInstructors = {"Select an item", "Yusuf Evren AYKAÇ", "Yusuf Şevki GÜNAYDIN"};
-        instructorCB.setModel(new DefaultComboBoxModel<>(cengInstructors));
-        hash.put(departmentEngineering[1], cengInstructors);
-
-        /*instructorHealth*/
-        String[] healthInstructors = {"Select an item", "Yahya ÖZDOĞAN", "Emine ELİBOL"};
-        instructorCB.setModel(new DefaultComboBoxModel<>(healthInstructors));
-        hash.put(departmentSciences[1], healthInstructors);
-        /*instructorArch*/
-
-        String[] archInstructors = {"Select an item", "Rukiye ÇETİN", "Nurçin ÇELİK"};
-        instructorCB.setModel(new DefaultComboBoxModel<>(archInstructors));
-        hash.put(departmentArch[1], archInstructors);
-        
-        /* INSTRUCTOR COMBOBOX */
-        String[] facultyI = {"Select an item", "Faculty of Aeronautics and Space", "Faculty of Engineering and Natural Sciences", "Faculty of Health Sciences", "Faculty of Architecture and Fine Arts"};
-        instructorFacultyCB.setModel(new DefaultComboBoxModel<>(facultyI));
-        instructorFacultyCB.addActionListener(instructorAc);
-        
-        /* Aerospace */
-        String[] departmentAeroI = {"Select an item", "Aircraft Engineering"};
-        instructorDepartmentCB.setModel(new DefaultComboBoxModel<>(departmentAeroI));
-        hash2.put(facultyI[1], departmentAeroI);
-
-        /* Engineering */
-        String[] departmentEngineeringI = {"Select an item", "Computer Engineering"};
-        instructorDepartmentCB.setModel(new DefaultComboBoxModel<>(departmentEngineeringI));
-        hash2.put(facultyI[2], departmentEngineeringI);
-
-        /* Healt Sciences*/
-        String[] departmentSciencesI = {"Select an item", "Nutrition and Dietetics"};
-        instructorDepartmentCB.setModel(new DefaultComboBoxModel<>(departmentSciencesI));
-        hash2.put(facultyI[3], departmentSciencesI);
-
-        /*Architecture*/
-        String[] departmentArchI = {"Select an item", "Architecture"};
-        instructorDepartmentCB.setModel(new DefaultComboBoxModel<>(departmentArchI));
-        hash2.put(facultyI[4], departmentArchI);
-        
+        studentDepartmentCB.addItemListener(sc);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String str = (String) studentFacultyCB.getSelectedItem();
-        Object o = hash.get(str);
-        if (o == null) {
-            studentDepartmentCB.setModel(new DefaultComboBoxModel());
-        } else {
-            studentDepartmentCB.setModel(new DefaultComboBoxModel((String[]) o));
-        }
-    }
-
-    ActionListener ac = new ActionListener() {
+    ItemListener sc = new ItemListener() {
         @Override
-        public void actionPerformed(ActionEvent e) {
-            String str = (String) studentDepartmentCB.getSelectedItem();
-            Object o = hash.get(str);
-            if (o == null) {
-                instructorCB.setModel(new DefaultComboBoxModel());
-            } else {
-                instructorCB.setModel(new DefaultComboBoxModel((String[]) o));
+        public void itemStateChanged(ItemEvent e) {
+            ArrayList<Instructor> instructors = UserController.displayInstructor();
+            String item = "";
+            instructorCB.removeAllItems();
+            instructorCB.addItem("Select an item");
+            for (int i = 0; i < instructors.size(); i++) {
+                if (instructors.get(i).getDepartment_name().equals(e.getItem())) {
+                    item = instructors.get(i).getFirstname() + " " + instructors.get(i).getLastname();
+                    instructorCB.addItem(item);
+                }
             }
         }
     };
-    
-    ActionListener instructorAc = new ActionListener() {
+
+    ItemListener instructorItemIC = new ItemListener() {
         @Override
-        public void actionPerformed(ActionEvent e) {
-            String str = (String) instructorFacultyCB.getSelectedItem();
-            Object o = hash.get(str);
-            if (o == null) {
-                instructorDepartmentCB.setModel(new DefaultComboBoxModel());
-            } else {
-                instructorDepartmentCB.setModel(new DefaultComboBoxModel((String[]) o));
+        public void itemStateChanged(ItemEvent e) {
+            if (e.getItem() == "Faculty of Aeronautics and Space") {
+                instructorDepartmentCB.removeAllItems();
+                instructorDepartmentCB.addItem("Select an item");
+                instructorDepartmentCB.addItem("Aircraft Engineering");
+            } else if (e.getItem() == "Faculty of Engineering and Natural Sciences") {
+                instructorDepartmentCB.removeAllItems();
+                instructorDepartmentCB.addItem("Select an item");
+                instructorDepartmentCB.addItem("Computer Engineering");
+            } else if (e.getItem() == "Faculty of Health Sciences") {
+                instructorDepartmentCB.removeAllItems();
+                instructorDepartmentCB.addItem("Select an item");
+                instructorDepartmentCB.addItem("Nutrition and Dietetics");
+            } else if (e.getItem() == "Faculty of Architecture and Fine Arts") {
+                instructorDepartmentCB.removeAllItems();
+                instructorDepartmentCB.addItem("Select an item");
+                instructorDepartmentCB.addItem("Architecture");
             }
         }
     };
-    
+    ItemListener studentItemIC = new ItemListener() {
+        @Override
+        public void itemStateChanged(ItemEvent e) {
+            if (e.getItem() == "Faculty of Aeronautics and Space") {
+                studentDepartmentCB.removeAllItems();
+                studentDepartmentCB.addItem("Select an item");
+                studentDepartmentCB.addItem("Aircraft Engineering");
+            } else if (e.getItem() == "Faculty of Engineering and Natural Sciences") {
+                studentDepartmentCB.removeAllItems();
+                studentDepartmentCB.addItem("Select an item");
+                studentDepartmentCB.addItem("Computer Engineering");
+            } else if (e.getItem() == "Faculty of Health Sciences") {
+                studentDepartmentCB.removeAllItems();
+                studentDepartmentCB.addItem("Select an item");
+                studentDepartmentCB.addItem("Nutrition and Dietetics");
+            } else if (e.getItem() == "Faculty of Architecture and Fine Arts") {
+                studentDepartmentCB.removeAllItems();
+                studentDepartmentCB.addItem("Select an item");
+                studentDepartmentCB.addItem("Architecture");
+            }
+        }
+
+    };
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -243,6 +213,7 @@ public class RegisterJFrame extends javax.swing.JFrame implements ActionListener
         corporationPasswordTf = new javax.swing.JPasswordField();
         registerBtn = new javax.swing.JButton();
         messageLabel = new javax.swing.JLabel();
+        messageLabelPhoto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -678,31 +649,38 @@ public class RegisterJFrame extends javax.swing.JFrame implements ActionListener
 
         messageLabel.setText("jLabel33");
 
+        messageLabelPhoto.setText("jLabel34");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(studentRegisterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(studentRegisterRB)
-                        .addGap(18, 18, 18)
-                        .addComponent(instructorRegisterRB)
-                        .addGap(18, 18, 18)
-                        .addComponent(corporationRegisterRB)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(instructorRegisterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(corporationRegisterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(studentRegisterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(studentRegisterRB)
+                                .addGap(18, 18, 18)
+                                .addComponent(instructorRegisterRB)
+                                .addGap(18, 18, 18)
+                                .addComponent(corporationRegisterRB)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(instructorRegisterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(corporationRegisterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(48, 48, 48)
+                                .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)
+                                .addComponent(messageLabel))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(registerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(messageLabel)))
+                        .addGap(20, 20, 20)
+                        .addComponent(messageLabelPhoto)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -731,6 +709,8 @@ public class RegisterJFrame extends javax.swing.JFrame implements ActionListener
                             .addComponent(instructorRegisterRB)
                             .addComponent(corporationRegisterRB))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(messageLabelPhoto)
+                        .addGap(18, 18, 18)
                         .addComponent(studentRegisterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
@@ -763,6 +743,7 @@ public class RegisterJFrame extends javax.swing.JFrame implements ActionListener
         // TODO add your handling code here:
 
         if (studentRegisterRB.isSelected()) {
+
             String firstname = studentFirstnameTf.getText();
             String lastname = studentLastnameTf.getText();
             String birthday = studentBirthdayTf.getText();
@@ -777,9 +758,14 @@ public class RegisterJFrame extends javax.swing.JFrame implements ActionListener
             String photo = studentPhotoTf.getText();
             int studentNo = Integer.parseInt(studentNoTf.getText());
             String corporationName = studentCorporationNameCB.getSelectedItem().toString();
-
-            Student student = new Student(studentNo, firstname, lastname, birthday, faculty_name, department_name, email, password, address, phone, photo, gano, corporationName);
+            String[] splitInstructorName = instructor.split(" ");
+            String instructorName = splitInstructorName[0];
+            
+            Instructor instructorByStudent = UserController.getInstructorByStudent(instructorName);
+            Corporation corporationByStudent = CorporationController.getCorporationByStudent(corporationName);
+            Student student = new Student(studentNo, firstname, lastname, birthday, faculty_name, department_name, email, password, address, phone, photo, gano, corporationName,instructorByStudent, corporationByStudent);
             UserController.registerUser(student);
+            System.out.println(student);
             messageLabel.setText("Student added");
             System.out.println(password);
             studentFirstnameTf.setText("");
@@ -846,70 +832,53 @@ public class RegisterJFrame extends javax.swing.JFrame implements ActionListener
 
     private void uploadPhotoBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_uploadPhotoBtnMouseClicked
         // TODO add your handling code here:
+        String filename = null;
         JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
         File f = chooser.getSelectedFile();
-        //jLabel1.setIcon(new ImageIcon(f.toString()));
         filename = f.getAbsolutePath();
         studentPhotoTf.setText(filename);
 
         try {
-            File image = new File(filename);
-            FileInputStream fis = new FileInputStream(image);
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            byte[] buf = new byte[1024];
-            for (int i; (i = fis.read(buf)) != -1;) {
-                bos.write(buf, 0, i);
-            }
-            photo = bos.toByteArray();
-        } catch (Exception e) {
-            System.out.println(e);
+            BufferedImage myPicture = ImageIO.read(new File(filename));
+            messageLabelPhoto.setText("fotoğraf yüklendi.");
+        } catch (IOException ex) {
+            Logger.getLogger(RegisterJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_uploadPhotoBtnMouseClicked
 
     private void uploadPhotoInstructorBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_uploadPhotoInstructorBtnMouseClicked
         // TODO add your handling code here:
+        String filename = null;
         JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
         File f = chooser.getSelectedFile();
-        jLabel1.setIcon(new ImageIcon(f.toString()));
         filename = f.getAbsolutePath();
         instructorPhotoTf.setText(filename);
 
         try {
-            File image = new File(filename);
-            FileInputStream fis = new FileInputStream(image);
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            byte[] buf = new byte[1024];
-            for (int i; (i = fis.read(buf)) != -1;) {
-                bos.write(buf, 0, i);
-            }
-            photo = bos.toByteArray();
-        } catch (Exception e) {
-            System.out.println(e);
+            BufferedImage myPicture = ImageIO.read(new File(filename));
+            messageLabelPhoto.setText("fotoğraf yüklendi.");
+        } catch (IOException ex) {
+            Logger.getLogger(RegisterJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }//GEN-LAST:event_uploadPhotoInstructorBtnMouseClicked
 
     private void corporationUploadPhotoBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_corporationUploadPhotoBtnMouseClicked
         // TODO add your handling code here:
+        String filename = null;
         JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
         File f = chooser.getSelectedFile();
-        jLabel1.setIcon(new ImageIcon(f.toString()));
         filename = f.getAbsolutePath();
         corporationPhoto.setText(filename);
 
         try {
-            File image = new File(filename);
-            FileInputStream fis = new FileInputStream(image);
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            byte[] buf = new byte[1024];
-            for (int i; (i = fis.read(buf)) != -1;) {
-                bos.write(buf, 0, i);
-            }
-            photo = bos.toByteArray();
-        } catch (Exception e) {
-            System.out.println(e);
+            BufferedImage myPicture = ImageIO.read(new File(filename));
+            messageLabelPhoto.setText("fotoğraf yüklendi.");
+        } catch (IOException ex) {
+            Logger.getLogger(RegisterJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_corporationUploadPhotoBtnMouseClicked
 
@@ -1008,6 +977,7 @@ public class RegisterJFrame extends javax.swing.JFrame implements ActionListener
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel messageLabel;
+    private javax.swing.JLabel messageLabelPhoto;
     private javax.swing.JButton registerBtn;
     private javax.swing.JTextField studentAddressTf;
     private javax.swing.JTextField studentBirthdayTf;

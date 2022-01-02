@@ -10,9 +10,9 @@ package deneme;
  * @author Can
  */
 public class Corporation {
-    private int id;
+    private int c_id;
     private String c_name;
-    private static String c_email;
+    private String c_email;
     private String c_password;
     private String c_phone;
     private String c_type;
@@ -21,9 +21,8 @@ public class Corporation {
     private String c_photo;
     private static int totalCorporationCount=0;
     
-    
     public Corporation(String c_name, String c_email, String c_password, String c_phone, String c_type, String c_address, String c_sector, String c_photo){
-        this.id++;
+        this.c_id = totalCorporationCount + c_id + 1;
         this.c_name = c_name;
         this.c_email = c_email;
         this.c_password = c_password;
@@ -40,7 +39,7 @@ public class Corporation {
      * @return the id
      */
     public int getId() {
-        return id;
+        return c_id;
     }
 
     /**
@@ -53,7 +52,7 @@ public class Corporation {
     /**
      * @return the c_email
      */
-    public static String getC_email() {
+    public String getC_email() {
         return c_email;
     }
 
@@ -115,5 +114,4 @@ public class Corporation {
     public static int getTotalCorporationCount() {
         return totalCorporationCount;
     }
-    
 }

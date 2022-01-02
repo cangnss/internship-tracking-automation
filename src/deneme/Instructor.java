@@ -13,28 +13,28 @@ import java.util.Date;
  */
 public class Instructor extends User {
 
-    private static int instructor_id;
-    private static String username;
+    private int instructor_count_id;
+    private String username;
     private static int totalInstructor = 0;
-
+    
     public Instructor(String firstname, String lastname, String birthday, String faculty_name, String department_name, String email, String password, String address, String phone, String photo, String username) {
         super(firstname, lastname, birthday, faculty_name, department_name, email, password, address, phone, photo);
-        this.instructor_id++;
+        this.instructor_count_id = totalInstructor + instructor_count_id + 1;
         this.username = username;
         totalInstructor++;
     }
-
+    
     /**
-     * @return the instructor_id
+     * @return the instructor_count_id
      */
-    public static int getInstructor_id() {
-        return instructor_id;
+    public int getInstructor_count_id() {
+        return instructor_count_id;
     }
 
     /**
      * @return the username
      */
-    public static String getUsername() {
+    public String getUsername() {
         return username;
     }
 

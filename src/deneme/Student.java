@@ -28,6 +28,7 @@ public class Student extends User {
         this.gano = gano;
         this.corporation_name = corporation_name;
         totalStudent++;
+        System.out.println("Student id: " + student_id + "Total Student: " + totalStudent);
     }
 
     /**

@@ -7,9 +7,8 @@ package deneme;
 
 /**
  *
- * @author Can
+ * @author Monster
  */
-public class StudentManager {
-    
+public class Combo {
     
 }

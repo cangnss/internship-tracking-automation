@@ -5,6 +5,10 @@
  */
 package deneme;
 
+import java.awt.Image;
+import java.net.URL;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Can
@@ -18,6 +22,9 @@ public class LoginJFrame extends javax.swing.JFrame {
         initComponents();
         instructorPanel.setVisible(false);
         corporationPanel.setVisible(false);
+       URL iconURL1 = getClass().getResource("/icon/studentLogin.png");
+       ImageIcon icon2 = new ImageIcon(new ImageIcon(iconURL1).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+       generalLb.setIcon(icon2);
     }
 
     /**
@@ -33,27 +40,31 @@ public class LoginJFrame extends javax.swing.JFrame {
         studentRadioBtn = new javax.swing.JRadioButton();
         instructorRadioBtn = new javax.swing.JRadioButton();
         corporationRB = new javax.swing.JRadioButton();
+        jPanel1 = new javax.swing.JPanel();
         studentPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         studentEmailTf = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         passwordTf = new javax.swing.JPasswordField();
-        loginBtn = new javax.swing.JButton();
-        corporationPanel = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        corporationEmailTf = new javax.swing.JTextField();
-        passwordCorporationTf = new javax.swing.JPasswordField();
         instructorPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         usernameTf1 = new javax.swing.JTextField();
         passwordInstructorTf = new javax.swing.JPasswordField();
+        generalLb = new javax.swing.JLabel();
+        corporationPanel = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        corporationEmailTf = new javax.swing.JTextField();
+        passwordCorporationTf = new javax.swing.JPasswordField();
+        loginBtn = new javax.swing.JButton();
         messageLabelLogin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         buttonGroup1.add(studentRadioBtn);
+        studentRadioBtn.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
+        studentRadioBtn.setForeground(new java.awt.Color(0, 153, 204));
         studentRadioBtn.setSelected(true);
         studentRadioBtn.setText("Student");
         studentRadioBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -63,6 +74,8 @@ public class LoginJFrame extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(instructorRadioBtn);
+        instructorRadioBtn.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
+        instructorRadioBtn.setForeground(new java.awt.Color(0, 153, 204));
         instructorRadioBtn.setText("Instructor");
         instructorRadioBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,6 +84,8 @@ public class LoginJFrame extends javax.swing.JFrame {
         });
 
         buttonGroup1.add(corporationRB);
+        corporationRB.setFont(new java.awt.Font("Verdana", 3, 12)); // NOI18N
+        corporationRB.setForeground(new java.awt.Color(0, 153, 204));
         corporationRB.setText("Corporation");
         corporationRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,8 +93,12 @@ public class LoginJFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 51, 51));
         jLabel1.setText("Student Email:");
 
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 51, 102));
         jLabel2.setText("Password: ");
 
         javax.swing.GroupLayout studentPanelLayout = new javax.swing.GroupLayout(studentPanel);
@@ -93,9 +112,8 @@ public class LoginJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(studentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(studentEmailTf, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
-                    .addComponent(passwordTf))
-                .addContainerGap())
+                    .addComponent(studentEmailTf, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                    .addComponent(passwordTf)))
         );
         studentPanelLayout.setVerticalGroup(
             studentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,25 +122,58 @@ public class LoginJFrame extends javax.swing.JFrame {
                 .addGroup(studentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(studentEmailTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(studentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(studentPanelLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel2))
-                    .addGroup(studentPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(passwordTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(studentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(passwordTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        loginBtn.setText("LOGIN");
-        loginBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                loginBtnMouseClicked(evt);
-            }
-        });
+        jLabel3.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 51, 102));
+        jLabel3.setText("Username: ");
 
+        jLabel4.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 51, 102));
+        jLabel4.setText("Password: ");
+
+        javax.swing.GroupLayout instructorPanelLayout = new javax.swing.GroupLayout(instructorPanel);
+        instructorPanel.setLayout(instructorPanelLayout);
+        instructorPanelLayout.setHorizontalGroup(
+            instructorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(instructorPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(instructorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(instructorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(usernameTf1, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                    .addComponent(passwordInstructorTf))
+                .addGap(0, 4, Short.MAX_VALUE))
+        );
+        instructorPanelLayout.setVerticalGroup(
+            instructorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(instructorPanelLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(instructorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(usernameTf1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(21, 21, 21)
+                .addGroup(instructorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(passwordInstructorTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
+        generalLb.setForeground(new java.awt.Color(0, 153, 204));
+
+        jLabel5.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 51, 102));
         jLabel5.setText("Corporation Email:");
 
+        jLabel6.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 51, 102));
         jLabel6.setText("Password: ");
 
         javax.swing.GroupLayout corporationPanelLayout = new javax.swing.GroupLayout(corporationPanel);
@@ -136,8 +187,8 @@ public class LoginJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(corporationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(passwordCorporationTf, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                    .addComponent(corporationEmailTf)))
+                    .addComponent(corporationEmailTf, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                    .addComponent(passwordCorporationTf)))
         );
         corporationPanelLayout.setVerticalGroup(
             corporationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,91 +204,86 @@ public class LoginJFrame extends javax.swing.JFrame {
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        jLabel3.setText("Username: ");
-
-        jLabel4.setText("Password: ");
-
-        javax.swing.GroupLayout instructorPanelLayout = new javax.swing.GroupLayout(instructorPanel);
-        instructorPanel.setLayout(instructorPanelLayout);
-        instructorPanelLayout.setHorizontalGroup(
-            instructorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(instructorPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(instructorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(instructorPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(usernameTf1))
-                    .addGroup(instructorPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(passwordInstructorTf, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        instructorPanelLayout.setVerticalGroup(
-            instructorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(instructorPanelLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(instructorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(usernameTf1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
-                .addGroup(instructorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(passwordInstructorTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
+        loginBtn.setBackground(new java.awt.Color(153, 204, 255));
+        loginBtn.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        loginBtn.setForeground(new java.awt.Color(0, 51, 102));
+        loginBtn.setText("LOGIN");
+        loginBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                loginBtnMouseClicked(evt);
+            }
+        });
 
         messageLabelLogin.setText("jLabel7");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(generalLb, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(studentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(instructorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(corporationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(messageLabelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(corporationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(generalLb, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(studentPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(instructorPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(messageLabelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(studentRadioBtn)
+                        .addGap(160, 160, 160)
+                        .addComponent(studentRadioBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(instructorRadioBtn)
-                        .addGap(18, 18, 18)
+                        .addComponent(instructorRadioBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(corporationRB))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(messageLabelLogin)
-                                .addGap(482, 482, 482))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(studentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(44, 44, 44)
-                                .addComponent(instructorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(corporationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(47, 47, 47)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(studentRadioBtn)
-                    .addComponent(instructorRadioBtn)
-                    .addComponent(corporationRB))
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(studentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(instructorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(corporationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(messageLabelLogin))
-                .addGap(15, 15, 15))
+                .addContainerGap(36, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                    .addComponent(instructorRadioBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(corporationRB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(studentRadioBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
+                .addGap(53, 53, 53)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61))
         );
 
         pack();
@@ -245,6 +291,9 @@ public class LoginJFrame extends javax.swing.JFrame {
 
     private void instructorRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_instructorRadioBtnActionPerformed
         // TODO add your handling code here:
+         URL iconURL1 = getClass().getResource("/icon/teacherLogin.png");
+            ImageIcon icon2 = new ImageIcon(new ImageIcon(iconURL1).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+            generalLb.setIcon(icon2);
         instructorPanel.setVisible(true);
         studentPanel.setVisible(false);
         corporationPanel.setVisible(false);
@@ -252,13 +301,20 @@ public class LoginJFrame extends javax.swing.JFrame {
 
     private void studentRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentRadioBtnActionPerformed
         // TODO add your handling code here:
+         URL iconURL1 = getClass().getResource("/icon/studentLogin.png");
+            ImageIcon icon2 = new ImageIcon(new ImageIcon(iconURL1).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+            generalLb.setIcon(icon2);
         studentPanel.setVisible(true);
         instructorPanel.setVisible(false);
         corporationPanel.setVisible(false);
+        
     }//GEN-LAST:event_studentRadioBtnActionPerformed
 
     private void corporationRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_corporationRBActionPerformed
         // TODO add your handling code here:
+         URL iconURL1 = getClass().getResource("/icon/corporationLogin.png");
+            ImageIcon icon2 = new ImageIcon(new ImageIcon(iconURL1).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+            generalLb.setIcon(icon2);
         corporationPanel.setVisible(true);
         studentPanel.setVisible(false);
         instructorPanel.setVisible(false);
@@ -267,6 +323,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     private void loginBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnMouseClicked
         // TODO add your handling code here:
         if (studentRadioBtn.isSelected()) {
+           
             String studentEmail = studentEmailTf.getText();
             String studentPassword = new String(passwordTf.getPassword());
             if(UserController.checkStudent(studentEmail)){
@@ -333,6 +390,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField corporationEmailTf;
     private javax.swing.JPanel corporationPanel;
     private javax.swing.JRadioButton corporationRB;
+    private javax.swing.JLabel generalLb;
     private javax.swing.JPanel instructorPanel;
     private javax.swing.JRadioButton instructorRadioBtn;
     private javax.swing.JLabel jLabel1;
@@ -341,6 +399,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginBtn;
     private javax.swing.JLabel messageLabelLogin;
     private javax.swing.JPasswordField passwordCorporationTf;

@@ -72,13 +72,15 @@ public class CorporationMainPageJFrame extends javax.swing.JFrame {
 
     private void getAllStudentBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_getAllStudentBtnMouseClicked
         // TODO add your handling code here:
-        String res = "";
-        res = CorporationController.getAllStudent();
-        if (res.equals("")) {
+        String res1 = "";
+        res1 = CorporationController.getAllStudent();
+        if (res1.equals("")) {
             displayStudentTA.setText("Ogrenci bulunamadı...");
+        }else{
+             displayStudentTA.setText(res1);
         }
         
-        displayStudentTA.setText(res);
+       
     }//GEN-LAST:event_getAllStudentBtnMouseClicked
 
     /**

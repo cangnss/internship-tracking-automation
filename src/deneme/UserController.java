@@ -52,13 +52,12 @@ public class UserController {
         String result = "";
         for (int i = 0; i < userArrayList.size(); i++) {
             if (userArrayList.get(i) instanceof Student) {
-                int totalStudent = Student.getTotalStudent();
-                for (int j = 0; j < totalStudent; j++) {
-                    result += userArrayList.get(i).toString();
-                }
+                result += userArrayList.get(i).toString();
+               
             }
         }
         return result;
+          
     }
 
     public static String getInstructor() {
@@ -74,18 +73,14 @@ public class UserController {
         return result;
     }
 
-    public static ArrayList displayInstructor() {
-        ArrayList temp = new ArrayList();
+    public static ArrayList<Instructor> displayInstructor() {
+        ArrayList<Instructor> instructorArrayList = new ArrayList<Instructor>();
         for (int i = 0; i < userArrayList.size(); i++) {
             if (userArrayList.get(i) instanceof Instructor) {
-                temp.add(userArrayList.get(i).getId());
-                temp.add(Instructor.getInstructor_id());
-                temp.add(userArrayList.get(i).getFirstname());
-                temp.add(userArrayList.get(i).getLastname());
-                temp.add(userArrayList.get(i).getEmail());
+                instructorArrayList.add((Instructor) userArrayList.get(i));
             }
         }
-        return temp;
+        return instructorArrayList;
     }
     
     /*public static ArrayList<Student> displayStudent() {

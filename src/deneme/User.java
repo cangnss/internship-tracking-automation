@@ -24,8 +24,10 @@ public abstract class User {
     private String address;
     private String phone;
     private String photo;
+    private boolean isInstructor=false;
+    private static int totalUser=0;
 
-    public User(String firstname, String lastname, String birthday, String faculty_name, String department_name, String email, String password, String address, String phone, String photo) {
+    public User( String firstname, String lastname, String birthday, String faculty_name, String department_name, String email, String password, String address, String phone, String photo) {
         this.id++;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -37,6 +39,7 @@ public abstract class User {
         this.address = address;
         this.phone = phone;
         this.photo = photo;
+        totalUser++;
     }
 
     /**
@@ -128,6 +131,20 @@ public abstract class User {
                 + "Address: " + getAddress() + "\n"
                 + "Phone: " + getPhone() + "\n"
                 + "Photo: " + getPhoto();
+    }
+
+    /**
+     * @return the isInstructor
+     */
+    public boolean isIsInstructor() {
+        return isInstructor;
+    }
+
+    /**
+     * @param isInstructor the isInstructor to set
+     */
+    public void setIsInstructor(boolean isInstructor) {
+        this.isInstructor = isInstructor;
     }
 
 }

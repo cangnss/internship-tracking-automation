@@ -5,6 +5,24 @@
  */
 package deneme;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import org.icepdf.ri.common.ComponentKeyBinding;
+import org.icepdf.ri.common.SwingController;
+import org.icepdf.ri.common.SwingViewBuilder;
+
 /**
  *
  * @author Can
@@ -13,14 +31,21 @@ public class StudentMainPageJFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form StudentMainPageJFrame
+     *
+     * @throws java.io.IOException
      */
-    public StudentMainPageJFrame() {
+    public StudentMainPageJFrame() throws IOException {
         initComponents();
         if (Student.isInternStatus()) {
             studentInternStatus.setText("Staj onaylanmıştır.");
-        }else{
+        } else {
             studentInternStatus.setText("Staj onaylanmamamıştır.");
         }
+        if(UserController.loggedUser == null){
+            JOptionPane.showMessageDialog(null, "Lütfen giriş yapınız.");
+        }
+        BufferedImage myPicture = ImageIO.read(new File(UserController.loggedUser.getPhoto()));
+        studentPhotoLabel.setIcon(new ImageIcon(new ImageIcon(myPicture).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
     }
 
     /**
@@ -38,6 +63,8 @@ public class StudentMainPageJFrame extends javax.swing.JFrame {
         messageLabelFromStudent = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         studentInternStatus = new javax.swing.JLabel();
+        studentPhotoPanel = new javax.swing.JPanel();
+        studentPhotoLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,12 +83,33 @@ public class StudentMainPageJFrame extends javax.swing.JFrame {
 
         studentInternStatus.setText("jLabel3");
 
+        studentPhotoLabel.setText("jLabel3");
+
+        javax.swing.GroupLayout studentPhotoPanelLayout = new javax.swing.GroupLayout(studentPhotoPanel);
+        studentPhotoPanel.setLayout(studentPhotoPanelLayout);
+        studentPhotoPanelLayout.setHorizontalGroup(
+            studentPhotoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(studentPhotoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(studentPhotoLabel)
+                .addContainerGap(146, Short.MAX_VALUE))
+        );
+        studentPhotoPanelLayout.setVerticalGroup(
+            studentPhotoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(studentPhotoPanelLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(studentPhotoLabel)
+                .addContainerGap(103, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(studentPhotoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -76,32 +124,55 @@ public class StudentMainPageJFrame extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(studentInternStatus)))
-                .addContainerGap(150, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(studentInternStatus))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(fileUploadTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(messageLabelFromStudent))
-                .addGap(18, 18, 18)
-                .addComponent(uploadFileBtn)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(studentInternStatus))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(fileUploadTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(messageLabelFromStudent))
+                        .addGap(18, 18, 18)
+                        .addComponent(uploadFileBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(studentPhotoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(303, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    String filename;
 
+    public void openpdf() {
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        filename = f.getAbsolutePath();
+        fileUploadTf.setText(filename);
+
+        SwingController controller = new SwingController();
+        SwingViewBuilder factory = new SwingViewBuilder(controller);
+        JPanel viewerComponentPanel = factory.buildViewerPanel();
+        ComponentKeyBinding.install(controller, viewerComponentPanel);
+        controller.getDocumentViewController().setAnnotationCallback(
+                new org.icepdf.ri.common.MyAnnotationCallback(
+                        controller.getDocumentViewController()));
+        Student.setPdfFile(filename);
+    }
+    
     private void uploadFileBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_uploadFileBtnMouseClicked
         // TODO add your handling code here:
-        
-        
+        openpdf();
+        this.dispose();
     }//GEN-LAST:event_uploadFileBtnMouseClicked
 
     /**
@@ -134,7 +205,11 @@ public class StudentMainPageJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new StudentMainPageJFrame().setVisible(true);
+                try {
+                    new StudentMainPageJFrame().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(StudentMainPageJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -145,6 +220,8 @@ public class StudentMainPageJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel messageLabelFromStudent;
     private static javax.swing.JLabel studentInternStatus;
+    private javax.swing.JLabel studentPhotoLabel;
+    private javax.swing.JPanel studentPhotoPanel;
     private javax.swing.JButton uploadFileBtn;
     // End of variables declaration//GEN-END:variables
 }

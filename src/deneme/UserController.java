@@ -14,36 +14,34 @@ import java.util.ArrayList;
 public class UserController {
 
     public static ArrayList<User> userArrayList = new ArrayList<User>();
+    public static User loggedUser;
 
     public static void registerUser(User user) {
         userArrayList.add(user);
     }
 
-    public static boolean checkStudent(String studentEmail) {
+    public static boolean checkStudent(String studentEmail, String studentPassword) {
         for (int i = 0; i < userArrayList.size(); i++) {
             if (userArrayList.get(i) instanceof Student) {
-                int totalStudent = Student.getTotalStudent();
-                for (int j = 0; j < totalStudent; j++) {
-                    if (userArrayList.get(i).getEmail().equals(studentEmail)) {
-                        return true;
-                    }
+                if (userArrayList.get(i).getPassword().equals(studentPassword) && userArrayList.get(i).getEmail().equals(studentEmail)) {
+                    loggedUser = userArrayList.get(i);
+                    return true;
                 }
             }
         }
         return false;
     }
 
-    public static boolean checkInstructor(String username) {
+    public static boolean checkInstructor(String username, String instructorPassword) {
         for (int i = 0; i < userArrayList.size(); i++) {
             if (userArrayList.get(i) instanceof Instructor) {
-                int totalInstructor = Instructor.getTotalInstructor();
-                for (int j = 0; j < totalInstructor; j++) {
-                    if (Instructor.getUsername().equals(username)) {
-                        return true;
-                    }
+                Instructor instructor = (Instructor) userArrayList.get(i);
+                if (instructor.getUsername().equals(username) && userArrayList.get(i).getPassword().equals(instructorPassword)) {
+                    loggedUser = userArrayList.get(i);
+                    loggedUser.setIsInstructor(true);
+                    return true;
                 }
             }
-
         }
         return false;
     }
@@ -52,55 +50,45 @@ public class UserController {
         String result = "";
         for (int i = 0; i < userArrayList.size(); i++) {
             if (userArrayList.get(i) instanceof Student) {
-                int totalStudent = Student.getTotalStudent();
-                for (int j = 0; j < totalStudent; j++) {
+                result += userArrayList.get(i).toString();
+            }
+        }
+        return result;
+    }
+    /*
+    public static String getStudentByCorporation(int corporationId) {
+        String result = "";
+        for (int i = 0; i < userArrayList.size(); i++) {
+            if (userArrayList.get(i) instanceof Student) {
+                Student student = (Student) userArrayList.get(i);
+                if (corporationId == student.getCorporationId()) {
                     result += userArrayList.get(i).toString();
                 }
             }
         }
         return result;
-    }
+    }*/
 
     public static String getInstructor() {
         String result = "";
         for (int i = 0; i < userArrayList.size(); i++) {
             if (userArrayList.get(i) instanceof Instructor) {
-                int totalInstructor = Instructor.getTotalInstructor();
-                for (int j = 0; j < totalInstructor; j++) {
-                    result += userArrayList.get(i).toString();
-                }
+                result += userArrayList.get(i).toString();
             }
         }
         return result;
     }
 
-    public static ArrayList displayInstructor() {
-        ArrayList temp = new ArrayList();
+    public static ArrayList<Instructor> displayInstructor() {
+        ArrayList<Instructor> instructorArrayList = new ArrayList<Instructor>();
         for (int i = 0; i < userArrayList.size(); i++) {
             if (userArrayList.get(i) instanceof Instructor) {
-                temp.add(userArrayList.get(i).getId());
-                temp.add(Instructor.getInstructor_id());
-                temp.add(userArrayList.get(i).getFirstname());
-                temp.add(userArrayList.get(i).getLastname());
-                temp.add(userArrayList.get(i).getEmail());
+                instructorArrayList.add((Instructor) userArrayList.get(i));
             }
         }
-        return temp;
+        return instructorArrayList;
     }
-    
-    /*public static ArrayList<Student> displayStudent() {
-        ArrayList temp = new ArrayList();
-        for (int i = 0; i < userArrayList.size(); i++) {
-            if (userArrayList.get(i) instanceof Student) {
-                temp.add(userArrayList.get(i).getId());
-                temp.add(userArrayList.get(i).getFirstname());
-                temp.add(userArrayList.get(i).getLastname());
-                temp.add(userArrayList.get(i).getEmail());
-            }
-        }
-        return temp;
-    }*/
-    
+
     public static ArrayList<Student> displayStudent() {
         ArrayList<Student> studentArrayList = new ArrayList<Student>();
         for (int i = 0; i < userArrayList.size(); i++) {
@@ -111,4 +99,15 @@ public class UserController {
         return studentArrayList;
     }
 
+    public static Instructor getInstructorByStudent(String instructorName) {
+        Instructor instructor;
+        for (int i = 0; i < userArrayList.size(); i++) {
+            if (userArrayList.get(i).getFirstname().equals(instructorName)) {
+                instructor = (Instructor) userArrayList.get(i);
+                return instructor;
+            }
+        }
+        instructor = new Instructor("", "", "", "", "", "", "", "", "", "", "");
+        return instructor;
+    }
 }
